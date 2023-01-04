@@ -21,9 +21,9 @@ AcXcal = -950;
 AcYcal = 300;
 AcZcal = 0;
 tcal = -1600;
-GyXcal = 480;
-GyYcal = 170;
-GyZcal = 210;
+GyXcal = 600;
+GyYcal = -85;
+GyZcal = -180;
 AcX = Wire.read() << 8 | Wire.read();
 AcY = Wire.read() << 8 | Wire.read();
 AcZ = Wire.read() << 8 | Wire.read();
@@ -37,12 +37,18 @@ tf = (t * 9 / 5) + 32;
 getAngle(AcX, AcY, AcZ);
 
 //Serial.print("Accelerometer: ");
+int x = (AcX + AcXcal);
+int y = (AcY + AcYcal);
+int z = (AcZ + AcZcal);
+int gx = (GyX + GyXcal);
+int gy = (GyY + GyYcal);
+int gz = (GyZ + GyZcal);
 Serial.print("");
-Serial.print((AcX + AcXcal));//x
+Serial.print(x * .000061f * 9.80665f- gx);//x
 Serial.print(" ");
-Serial.print((AcY + AcYcal));//y
+Serial.print(y * .000061f * 9.80665f- gy);//y
 Serial.print(" ");
-Serial.println((AcZ + AcZcal));//Z
+Serial.println(z * .000061f * 9.80665f- gz);//Z
 
 delay(5);
 }
