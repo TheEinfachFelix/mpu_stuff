@@ -22,7 +22,7 @@ void wifiSetup(){
     Serial.println(WiFi.localIP());
 
     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-        request->send(200, "text/plain", "Daten: " + String(millis()) + "\n" + String(x1));
+        request->send(200, "text/plain", "Daten: " + String(millis()) + "\n" + String(x1)+String(x3)+String(x2));
     });
 
     server.onNotFound(notFound);

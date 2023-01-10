@@ -12,6 +12,7 @@ String x3;
 bool flightState = false;
 int flightGate = 1500;
 int o =0;
+int StringLength = 11400;
 
 void setup() {
     Serial.begin(115200);
@@ -32,22 +33,23 @@ void loop() {
         }        
     } 
     if(flightState){
+        //x1 = x1 + String(outx)+"\t"+String(outy)+"\t"+String(outz) + "\n";
         Serial.println("x");
-        if (x1.length() < 550){
+        if (x1.length() < StringLength){
             Serial.println("x1");
             x1 = x1 + String(outx)+"\t"+String(outy)+"\t"+String(outz) + "\n";
-        }else if (x2.length() < 500)
+        }else if (x2.length() < StringLength)
         {
             Serial.println("x2");
             x2 = x2 + String(outx)+"\t"+String(outy)+"\t"+String(outz) + "\n";
-        }else if (x3.length() >! 500)
+        }else if (x3.length() >! StringLength)
         {
             Serial.println("x3");
             x3 = x3 + String(outx)+"\t"+String(outy)+"\t"+String(outz) + "\n";
-        }else if (x3.length() > 500)
+        }else if (x3.length() > StringLength)
         {
             Serial.println("xxxx");
-            x1 ="";
+            x1 ="r";
             x2 ="";
             x3 ="";
         }
@@ -58,7 +60,7 @@ void loop() {
     if (o<x1.length()){
         o= x1.length();
     }
-    Serial.println(o);
+    Serial.println(x1.length());
     //Serial.println(String(out.ax * cal * Gravitation - out.gx)+" "+ String(out.ay * cal * Gravitation - out.gy) + " " + String(out.az * cal * Gravitation - out.gz));
     delay(5);
 }
