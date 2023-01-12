@@ -14,8 +14,6 @@ struct Vector
     float gz;
 };
 
-
-
 void setupGyro();
 Vector getGyro();
 void getAngle(int Ax, int Ay, int Az);
