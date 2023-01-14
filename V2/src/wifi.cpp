@@ -4,28 +4,52 @@
 extern const char* ssid;
 extern const char* password;
 
-const char* PARAM_MESSAGE = "message";
+ESP8266WiFiMulti WiFiMulti;
+WebSocketsServer webSocket = WebSocketsServer(81);
 
-void notFound(AsyncWebServerRequest *request) {
-    request->send(404, "text/plain", "Not found :)");
-}
+void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length) {
+    switch(type) {
+        case WStype_DISCONNECTED:
+            Serial.printf("[%u] Disconnected!\n", num);
+            break;
+        case WStype_CONNECTED: {
+            IPAddress ip = webSocket.remoteIP(num);
+            Serial.printf("[%u] Connected from %d.%d.%d.%d url: %s\n", num, ip[0], ip[1], ip[2], ip[3], payload);
 
+            // send message to client
+            webSocket.sendTXT(num, "Connected");
+        }
+            break;
+        case WStype_TEXT:
+            Serial.printf("[%u] get Text: %s\n", num, payload);
+            webSocket.sendTXT(num, x1);
+            break;
+        case WStype_BIN:
+            break;
+        case WStype_FRAGMENT_TEXT_START:
+            break;
+        case WStype_FRAGMENT_BIN_START:
+            break;
+        case WStype_FRAGMENT:
+            break;
+        case WStype_FRAGMENT_FIN:
+            break;
+        case WStype_PING:
+            break;
+        case WStype_PONG:
+            break;
+        case WStype_ERROR:
+           break;
+    }}
 
 void wifiSetup(){
-    WiFi.mode(WIFI_STA);
-    WiFi.begin(ssid, password);
-    if (WiFi.waitForConnectResult() != WL_CONNECTED) {
-        Serial.printf("WiFi Failed!\n");
-        return;
+    //Serial.setDebugOutput(true);
+    WiFiMulti.addAP(ssid, password);
+
+    while(WiFiMulti.run() != WL_CONNECTED) {
+        delay(100);
     }
-
-    Serial.print("IP Address: ");
-    Serial.println(WiFi.localIP());
-
-    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-        request->send(200, "text/plain", "Daten: " + String(millis()) + "\n" + String(x1)+String(x2)+String(x3));
-    });
-
-    server.onNotFound(notFound);
-    server.begin();
+    // start webSocket server
+    webSocket.begin();
+    webSocket.onEvent(webSocketEvent);
 }

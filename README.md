@@ -18,4 +18,5 @@ Serial.println(z * .000061f * 9.80665f- gz);//Z
 https://www.w3schools.com/xml/ajax_intro.asp
 https://github.com/me-no-dev/ESPAsyncWebServer#template-processing
 
-coket /netcat
+soket /netcat
+websockte
