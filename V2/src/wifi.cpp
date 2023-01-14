@@ -22,7 +22,12 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length
             break;
         case WStype_TEXT:
             Serial.printf("[%u] get Text: %s\n", num, payload);
-            webSocket.sendTXT(num, x1);
+            if(payload[0] == 'c'){
+                x1 = "";
+                webSocket.sendTXT(num, "cleared");
+            } else {
+                webSocket.sendTXT(num, x1);
+            }
             break;
         case WStype_BIN:
             break;
