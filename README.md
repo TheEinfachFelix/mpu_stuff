@@ -17,6 +17,7 @@ Serial.println(z * .000061f * 9.80665f- gz);//Z
 ## better web stuff
 https://www.w3schools.com/xml/ajax_intro.asp
 https://github.com/me-no-dev/ESPAsyncWebServer#template-processing
+https://github.com/Links2004/arduinoWebSockets/tree/master/examples
 
 soket /netcat
 websockte

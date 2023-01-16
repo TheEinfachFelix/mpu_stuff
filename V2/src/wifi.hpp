@@ -15,4 +15,6 @@ void wifiSetup();
 extern const char* ssid;
 extern const char* password;
 extern String x1;
+extern String x2;
+extern String x3;
 extern bool flightState;

@@ -8,5 +8,7 @@
 #include "wifi.hpp"
 
 extern String x1;
+extern String x2;
+extern String x3;
 extern Vector out;
 extern WebSocketsServer webSocket;
