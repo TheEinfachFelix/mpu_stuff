@@ -21,3 +21,5 @@ https://github.com/Links2004/arduinoWebSockets/tree/master/examples
 
 soket /netcat
 websockte
+=(A1*0,000061 * 9,80665) - E1
+192.168.222.221

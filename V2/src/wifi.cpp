@@ -28,9 +28,9 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length
                 x3 = "";
                 webSocket.sendTXT(num, "cleared");
             } else {
-                webSocket.sendTXT(num, x1);
-                webSocket.sendTXT(num, x2);
                 webSocket.sendTXT(num, x3);
+                webSocket.sendTXT(num, x2);
+                webSocket.sendTXT(num, x1);
             }
             break;
         case WStype_BIN:
