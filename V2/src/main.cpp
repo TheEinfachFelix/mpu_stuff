@@ -47,7 +47,7 @@ void loop() {
             Serial.println(x1.length());
         }
     }
-    //Serial.println(WiFi.localIP());
+    Serial.println(WiFi.localIP());
     //Serial.println(String(out.ax * cal * Gravitation - out.gx)+" "+ String(out.ay * cal * Gravitation - out.gy) + " " + String(out.az * cal * Gravitation - out.gz));
     delay(15);
 }
