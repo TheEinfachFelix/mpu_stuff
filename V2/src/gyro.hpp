@@ -1,13 +1,14 @@
 #pragma once
 
-
+//mpu libs
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
 #include <Wire.h>
-#include <Wire.h>
+//general libs
 #include <math.h>
 #include <Arduino.h>
 
+extern Adafruit_MPU6050 mpu;
 struct Vector
 {
     float ax;
@@ -20,6 +21,4 @@ struct Vector
 
 void setupGyro();
 Vector getGyro();
-void getAngle(int Ax, int Ay, int Az);
-
-extern Adafruit_MPU6050 mpu;
+double * getAngle();

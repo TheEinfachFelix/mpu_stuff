@@ -1,9 +1,6 @@
 #include "wifi.hpp"
 #include "WIFIconfig.hpp"
 
-extern const char* ssid;
-extern const char* password;
-
 ESP8266WiFiMulti WiFiMulti;
 WebSocketsServer webSocket = WebSocketsServer(81);
 
@@ -26,6 +23,7 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length
                 x1 = "";
                 x2 = "";
                 x3 = "";
+                full = 0;
                 webSocket.sendTXT(num, "cleared");
             } else {
                 webSocket.sendTXT(num, x3);
