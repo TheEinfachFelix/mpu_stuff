@@ -8,9 +8,12 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <math.h> 
+#include <Servo.h>
 
 #include "gyro.hpp"
 #include "wifi.hpp"
+
+Servo Landing_Gear;
 
 extern Vector out;
 extern WebSocketsServer webSocket;

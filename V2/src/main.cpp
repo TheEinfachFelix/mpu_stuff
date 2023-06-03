@@ -10,6 +10,8 @@ double * AngleOut;
 void setup() {
     Serial.begin(115200);
     pinMode(13, INPUT_PULLUP);
+    pinMode(A0, INPUT);
+    Landing_Gear.attach(16);
     wifiSetup();
     setupGyro();
 }
@@ -41,5 +43,8 @@ void loop() {
     }
 
     //Serial.println(WiFi.localIP());
+    //Serial.println(String((out.ax)) + "\t" + String((out.ay)) + "\t"+ String((out.az)) +"\t" + millis() +"\t" + String(AngleOut[0]) +"\t" + String(AngleOut[1]));
     delay(15);
+    Landing_Gear.write(0);
+    Serial.println(analogRead(A0));
 }
