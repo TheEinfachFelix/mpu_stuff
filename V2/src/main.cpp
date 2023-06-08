@@ -31,7 +31,7 @@ void loop() {
     if(x1.length() < StringLength){
         if(digitalRead(13) == 1 && !full){
             x1 = x1 + String((out.ax)) + "\t" + String((out.ay)) + "\t"+ String((out.az)) +"\t" + millis() 
-            +"\t" + String(AngleOut[0]) +"\t" + String(AngleOut[1]) + String(get_bpm_SealevelPressure()) + "\n";
+            +"\t" + String(AngleOut[0]) +"\t" + String(AngleOut[1]) +"\t" + String(get_bpm_altitude(altimeter_ofset)) + "\n";
             Serial.println(x1.length());
     }}
 
@@ -53,5 +53,5 @@ void loop() {
     //Serial.println(String((out.ax)) + "\t" + String((out.ay)) + "\t"+ String((out.az)) +"\t" + millis() +"\t" + String(AngleOut[0]) +"\t" + String(AngleOut[1]) + String(get_bpm_SealevelPressure()));
     delay(15);
     Landing_Gear.write(0);
-    Serial.println(analogRead(A0));
+
 }
