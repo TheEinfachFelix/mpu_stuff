@@ -4,6 +4,7 @@
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
 #include <Wire.h>
+#include <Adafruit_BMP085.h>
 //general libs
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
@@ -12,8 +13,10 @@
 
 #include "gyro.hpp"
 #include "wifi.hpp"
+#include "bmp.hpp"
 
 Servo Landing_Gear;
+Adafruit_BMP085 bmp180;
 
 extern Vector out;
 extern WebSocketsServer webSocket;

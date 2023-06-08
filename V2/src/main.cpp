@@ -6,26 +6,33 @@ String x1, x2, x3 = "";
 uint32_t StringLength = 9000; //6987 fine 6987 not fine 8000
 bool full = 0;
 double * AngleOut;
+int32_t altimeter_ofset;
 
 void setup() {
     Serial.begin(115200);
     pinMode(13, INPUT_PULLUP);
     pinMode(A0, INPUT);
     Landing_Gear.attach(16);
+    
+
     wifiSetup();
     setupGyro();
+    bmp_setup();
+    
+    altimeter_ofset = get_bpm_SealevelPressure();
 }
 
 void loop() {
+
     mpu.getEvent(&a, &g, &temp);
     webSocket.loop();
     out = getGyro();
     AngleOut = getAngle();
     if(x1.length() < StringLength){
-    if(digitalRead(13) == 1 && !full){
-        x1 = x1 + String((out.ax)) + "\t" + String((out.ay)) + "\t"+ String((out.az)) +"\t" + millis() 
-        +"\t" + String(AngleOut[0]) +"\t" + String(AngleOut[1]) +"\n";
-        Serial.println(x1.length());
+        if(digitalRead(13) == 1 && !full){
+            x1 = x1 + String((out.ax)) + "\t" + String((out.ay)) + "\t"+ String((out.az)) +"\t" + millis() 
+            +"\t" + String(AngleOut[0]) +"\t" + String(AngleOut[1]) + String(get_bpm_SealevelPressure()) + "\n";
+            Serial.println(x1.length());
     }}
 
     if(x1.length() >= StringLength){
@@ -43,7 +50,7 @@ void loop() {
     }
 
     //Serial.println(WiFi.localIP());
-    //Serial.println(String((out.ax)) + "\t" + String((out.ay)) + "\t"+ String((out.az)) +"\t" + millis() +"\t" + String(AngleOut[0]) +"\t" + String(AngleOut[1]));
+    //Serial.println(String((out.ax)) + "\t" + String((out.ay)) + "\t"+ String((out.az)) +"\t" + millis() +"\t" + String(AngleOut[0]) +"\t" + String(AngleOut[1]) + String(get_bpm_SealevelPressure()));
     delay(15);
     Landing_Gear.write(0);
     Serial.println(analogRead(A0));
