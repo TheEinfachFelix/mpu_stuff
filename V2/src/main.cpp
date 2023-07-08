@@ -49,7 +49,7 @@ void loop() {
                 }
             }
             x1 = x1 + String((out.ax)) + "\t" + String((out.ay)) + "\t"+ String((out.az)) +"\t" + millis() 
-            +"\t" + String(AngleOut[0]) +"\t" + String(AngleOut[1]) +"\t" + String(get_bpm_altitude(altimeter_ofset)) + "\n";
+            +"\t" + String(AngleOut[0]) +"\t" + String(AngleOut[1]) +"\t" + String(get_bpm_altitude(altimeter_ofset)) +"\t" + String(Door_State) + "\n";
             Serial.println(x1.length());
         } else {
             Door_Time = 0;
