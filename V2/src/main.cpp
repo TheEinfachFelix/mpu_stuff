@@ -9,6 +9,7 @@ double * AngleOut;
 int32_t altimeter_ofset;
 uint32_t Door_Time = 0;
 uint32_t Door_Delay = 1000;
+bool Door_mgs = 0;
 
 void setup() {
     Serial.begin(115200);
@@ -23,7 +24,7 @@ void setup() {
     
     altimeter_ofset = get_bpm_SealevelPressure();
 
-    Landing_Gear.write(0);
+    Landing_Gear.write(180);
 }
 
 void loop() {
@@ -37,19 +38,24 @@ void loop() {
             if(Door_Time == 0){
                 Door_Time = int(millis());
             }
-             if(millis() < (Door_Time + Door_Delay)){
-        Landing_Gear.write(0);
-    
-    } else {
-        Landing_Gear.write(180);  
-    }
+            if(millis() < (Door_Time + Door_Delay)){
+                Landing_Gear.write(180);
+
+            } else {
+                Landing_Gear.write(0);  
+                if(Door_mgs == 0){ // schreibt in den web socket log wann die tür auf geht
+                    x1 = x1 + millis() + ": Tür öffnen " + "\n";
+                    Door_mgs = 1;
+                }
+            }
             x1 = x1 + String((out.ax)) + "\t" + String((out.ay)) + "\t"+ String((out.az)) +"\t" + millis() 
             +"\t" + String(AngleOut[0]) +"\t" + String(AngleOut[1]) +"\t" + String(get_bpm_altitude(altimeter_ofset)) + "\n";
             Serial.println(x1.length());
-    } else {
-        Door_Time = 0;
-        Landing_Gear.write(0);
-    }
+        } else {
+            Door_Time = 0;
+            Door_mgs = 0;
+            Landing_Gear.write(180);
+        }
     }
 
     if(x1.length() >= StringLength){
@@ -66,11 +72,11 @@ void loop() {
         }
     }
 
-    //Serial.println(WiFi.localIP());
+    Serial.println(WiFi.localIP());
     //Serial.println(String((out.ax)) + "\t" + String((out.ay)) + "\t"+ String((out.az)) +"\t" + millis() +"\t" + String(AngleOut[0]) +"\t" + String(AngleOut[1]) + String(get_bpm_SealevelPressure()));
     delay(15);
     
 
    
-    Serial.println(millis() > (Door_Time + Door_Delay));
+    //Serial.println(millis() > (Door_Time + Door_Delay));
 }
