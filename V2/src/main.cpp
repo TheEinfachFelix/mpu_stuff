@@ -24,7 +24,7 @@ void setup() {
     
     altimeter_ofset = get_bpm_SealevelPressure();
 
-    Landing_Gear.write(0);
+    Landing_Gear.write(180);
 }
 
 void loop() {
@@ -39,11 +39,11 @@ void loop() {
                 Door_Time = int(millis());
             }
              if(millis() < (Door_Time + Door_Delay)){
-                Landing_Gear.write(0);
+                Landing_Gear.write(180);
                 Door_State = 1;
     
             } else {
-                Landing_Gear.write(180);
+                Landing_Gear.write(0);
                 Door_State = 0;
             }
             x1 = x1 + String((out.ax)) + "\t" + String((out.ay)) + "\t"+ String((out.az)) +"\t" + millis() 
@@ -51,7 +51,7 @@ void loop() {
             Serial.println(x1.length());
     } else {
         Door_Time = 0;
-        Landing_Gear.write(0);
+        Landing_Gear.write(180);
     }
     }
 
